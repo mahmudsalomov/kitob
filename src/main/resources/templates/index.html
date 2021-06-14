@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diplom ishi</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous" >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+<body class="text-center" style="background-color: lightblue">
+
+<div id="body" class="container-fluid text-center d-flex justify-content-center row mt-5">
+
+    <h4 class="col-12 mt-5">Kitob nomini tanlang va Word faylni yuklang</h4>
+    <div class="col-4 mt-5">
+        <input class="form-control" type="text" id="name" placeholder="Kitob nomi">
+    </div>
+
+
+    <div class="custom-file col-12 mt-3">
+        <input accept=".docx" type="file" class="f" id="file" required>
+        <label class="f" for="file">Word faylni tanlang</label>
+    </div>
+
+    <div id="root" class="col-12 mt-3">
+        <button class="btn btn-success" onclick="go()">Apk yaratish</button>
+    </div>
+
+    <div class="col-12 mt-3" id="plate">
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="  crossorigin="anonymous" ></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+
+
+    function k(data) {
+
+        let bookName=document.getElementById('name').value;
+        if (bookName.length===0) alert("Barcha maydonlarni to'ldiring!")
+        else {
+            document.getElementById("root").innerHTML="<button class=\"buttonload btn btn-success\">\n" +
+                "  <i class=\"fa fa-refresh fa-spin\"></i>Jarayon\n" +
+                "</button>";
+
+            document.getElementById("plate").innerHTML=""
+
+
+            axios.post("api/upload?name="+bookName,data
+            )
+                .then(function (response) {
+                    let data=JSON.parse(JSON.stringify(response.data))
+                    console.log(data)
+                    document.getElementById("root").innerHTML="  <button id=\"btn0\" onclick=\"go()\" class=\"btn btn-success\" >Aniqlash</button>\n";
+                    document.getElementById('plate').innerHTML="<a class=\"btn btn-success\" href='api/file/" + data.object.name + "'>Apkni yuklash</a>";
+                })
+                .catch(function (error) {
+                    document.getElementById("root").innerHTML="  <button id=\"btn0\" onclick=\"go()\" class=\"btn btn-success\" >Aniqlash</button>\n";
+                    document.getElementById("plate").innerHTML=""
+
+                    alert("Xato!")
+                });
+
+        }
+
+    }
+    function go() {
+
+        const uploadInput = document.getElementById('file');
+        let data = new window.FormData();
+        data.append('files', uploadInput.files[0]);
+        // data.append('regions', 'uz');
+        // let view=document.getElementById('view');
+        // view.src = URL.createObjectURL(uploadInput.files[0]);
+
+        // document.getElementById("plate").innerHTML=""
+
+
+
+
+        k(data);
+
+
+
+
+
+    }
+
+function apk() {
+
+
+
+}
+
+
+
+
+
+
+
+</script>
+</html>

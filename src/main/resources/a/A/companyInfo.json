@@ -1,0 +1,13 @@
+[
+    {
+        "id": 1,
+        "app_name": "new",
+        "package_name": "com.ehsanfahad.googlegenius.new",
+        "theme_color": "#0F9D58",
+        "app_icon": "app/src/main/res/drawable/app_icon.png",
+        "keystore_owner": "bekmirza",
+        "keystore_organizational_unit": "Coding Playground",
+        "keystore_organization": "bekmirza",
+        "keystore_country": "UZ"
+    }
+]
